@@ -1,6 +1,6 @@
 galaxy_info:
   author: Roberto Cardenas Isla
-  description: It role install pip package
+  description: It role installs pip package, so it is also possible to use ansible pip module
   company: Own project
 
   license: BSD
