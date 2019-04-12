@@ -17,13 +17,7 @@
   shell: "{{ pip_bin }} install --upgrade pip"
   when: pip_install is changed
 
-# - name: Upgrade Pip
-#   shell: pip install --upgrade pip
-#   register: upgrade_pip
-#   changed_when: upgrade_pip.stdout.find('Requirement already up-to-date') == -1
-#   become: False
-
-- name: Install all packages
+- name: Install all packages with {{ pip_bin }}
   pip:
     name: "{{ pip_install_packages }}"
     executable: "{{ pip_executable }}"
