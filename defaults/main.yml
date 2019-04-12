@@ -1,4 +1,9 @@
 ---
+# Use python-pip for python 2.x
+# Use python3-pip
 pip_package: python-pip
+pip_bin: "{{ 'pip3' if pip_package.startswith('python3') else 'pip' }}"
+pip_executable: "{{ '/usr/local/bin/pip3' if pip_package.startswith('python3') else '/usr/local/bin/pip' }}"
+
 pip_epel_release: 7
 pip_install_packages: []
