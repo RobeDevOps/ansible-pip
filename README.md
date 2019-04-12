@@ -1,4 +1,4 @@
-Role ansible-pip
+Role ansible_pip
 =========
 
 Requirements
@@ -36,7 +36,7 @@ Using defaults variables.
 ```
 - hosts: servers
   roles:
-      - { role: robedevops.pip }
+      - { role: robedevops.ansible_pip }
 ```
 
 Using  variables.
@@ -46,9 +46,9 @@ Using  variables.
   vars:
     pip_install_packages:
       - docker
-      
+
   roles:
-      - { role: robedevops.pip }
+      - { role: robedevops.ansible_pip }
 ```
 
 License
