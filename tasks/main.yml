@@ -1,0 +1,5 @@
+---
+- debug: msg="{{ ansible_distribution }}"
+
+- include_tasks: setup-CentOS.yml
+  when: ansible_distribution in ['CentOS', 'RedHat']

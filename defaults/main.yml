@@ -1,0 +1,4 @@
+---
+pip_package: python-pip
+pip_epel_release: 7
+pip_install_packages: []
