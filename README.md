@@ -31,8 +31,22 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
+Using defaults variables.
+
 ```
 - hosts: servers
+  roles:
+      - { role: robedevops.pip }
+```
+
+Using  variables.
+
+```
+- hosts: servers
+  vars:
+    pip_install_packages:
+      - docker
+      
   roles:
       - { role: robedevops.pip }
 ```
