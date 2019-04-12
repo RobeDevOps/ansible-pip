@@ -44,6 +44,7 @@ Using  variables.
 ```
 - hosts: servers
   vars:
+    pip_package: python36-pip
     pip_install_packages:
       - docker
 
