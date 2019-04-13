@@ -1,25 +1,44 @@
 ---
 - name: Epel repository
   yum:
-    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ pip_epel_release }}.noarch.rpm"
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
     state: present
-    update_cache: yes
   register: epel_repo
 
-- name: Install {{ pip_package }}
+- name: Update cache
+  yum:
+    name: "*"
+    update_cache: yes
+  when: epel_repo is changed
+
+- name: Install packages
   yum:
     name: "{{ pip_package }}"
     state: present
   register: pip_install
   when: epel_repo.rc is defined and epel_repo.rc == 0
 
-- name: Upgrade Pip with {{ pip_bin }}
-  shell: "{{ pip_bin }} install --upgrade pip"
-  when: pip_install is changed
+- name: Verify if pip was upgraded
+  stat:
+    path: "/usr/local/bin/{{ pip }}"
+  register: pip_executable_path
 
-- name: Install all packages with {{ pip_bin }}
+- name: Upgrade {{ pip }}
+  pip:
+    name: pip
+    state: present
+    executable: "/usr/bin/{{ pip }}"
+    extra_args: --upgrade
+  register: pip_upgrade
+  when: not pip_executable_path.stat.exists
+
+- name: Clear cache
+  shell: hash -r
+  changed_when: pip_upgrade is changed
+
+- name: Install all packages with {{ pip }}
   pip:
     name: "{{ pip_install_packages }}"
-    executable: "{{ pip_executable }}"
     state: present
+    executable: "/usr/local/bin/{{ pip }}"
   when: pip_install.rc is defined and pip_install.rc == 0

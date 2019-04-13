@@ -1,9 +1,9 @@
 ---
-# Use python-pip for python 2.x
-# Use python36-pip with python3.6
-pip_package: python-pip
-pip_bin: "{{ 'pip3' if pip_package.startswith('python3') else 'pip' }}"
-pip_executable: "{{ '/usr/local/bin/pip3' if pip_package.startswith('python3') else '/usr/bin/pip' }}"
+# python-pip: requires only python 2.x but it is mostly installed by default
+# python36-pip: requires also python3.6
+# using python36-pip as default due python-pip will be deprecated 2020 from python 2.7
+pip_package: python36-pip
+pip: "{{ 'pip3' if pip_package.startswith('python3') else 'pip' }}"
 
-pip_epel_release: 7
+# for python3x-pip the binary should be pip3
 pip_install_packages: []

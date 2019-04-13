@@ -3,48 +3,56 @@ Role ansible_pip
 
 Requirements
 ------------
-
-N/A
+Ubuntu requires the python-apt package installed on remote hosts.
 
 Role Variables
 --------------
 Python packages required to use pip 
 
 ```
-pip_package: python-pip 
+# Centos 
+pip_package: python36-pip
+
+# Debian | Ubuntu
+pip_package: python3-pip
 ```
 
-The epel-release repository. 
-TO-DO Still working for other release like 6 and 5.
-
-```
-pip_epel_release: 7
-```
-Defines the python packages to install using the ansible pip module
-
+Defines the packages to install using the ansible pip module
 ```
 pip_install_packages: []
 ```
 
-Example Playbook
+Example Playbook for CentOS | RedHat
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-Using defaults variables.
-
-```
-- hosts: servers
-  roles:
-      - { role: robedevops.ansible_pip }
-```
-
-Using  variables.
+Using variables.
 
 ```
 - hosts: servers
   vars:
     pip_package: python36-pip
+    pip_install_packages:
+      - docker
+  roles:
+      - { role: robedevops.ansible_pip }
+```
+
+Example Playbook for Ubuntu 18.04 
+----------------
+
+Using python3-pip need to specify also the python interpreter to avoid this issue:
+
+```
+fatal: [servers]: FAILED! => {"changed": false, "msg": "No setuptools found in remote host, please install it first."}
+```
+
+Playbook definition with python3-pip
+
+```
+- hosts: servers
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    pip_package: python3-pip
     pip_install_packages:
       - docker
 
