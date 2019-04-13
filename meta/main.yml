@@ -1,6 +1,6 @@
 galaxy_info:
   author: Roberto Cardenas Isla
-  description: It role installs pip package, so it is also possible to use ansible pip module
+  description: It role installs pip3 and allows to use pip module to install pip packages.
   company: Own project
 
   license: BSD
@@ -17,6 +17,7 @@ galaxy_info:
 
   galaxy_tags:
     - pip
+    - pip3
     - python
     - packages
 
