@@ -1,4 +1,6 @@
 ---
+- debug: msg={{ansible_python_interpreter}}
+
 - name: Update packages
   apt:
     name: "*"
@@ -33,3 +35,6 @@
     name: "{{ pip_install_packages }}"
     state: present
     executable: "/usr/local/bin/{{ pip }}"
+  when: 
+    - not ansible_check_mode
+    - pip_install is success
